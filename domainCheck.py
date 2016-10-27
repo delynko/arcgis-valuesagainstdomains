@@ -97,7 +97,10 @@ if len(fieldDomain) > 0:
 
     # Create set from list of non-matching values
     nonDom = set(nonDomVals)
-
+    
+    if len(nonDomVals) < 1:
+        print arcpy.AddWarning("Congratulations!! All values in the data match the domain's coded values.\n")
+        
     # Print values in data that do not match coded values in selected field
     for v in nonDom:
         print arcpy.AddWarning("{} is not a value in the {} domain for the {} field.".format(v, fieldDomain, fieldSel))
