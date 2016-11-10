@@ -17,17 +17,8 @@ arcpy.env.overwriteOutput = True
 mxd = arcpy.mapping.MapDocument("Current")
 
 dfs = arcpy.mapping.ListDataFrames(mxd)
-dataFrames = []
-for d in dfs:
-    dataFrames.append(d.name)
-
-if "Layers" not in dataFrames:
-    print arcpy.AddError('Please add a data frame named "Layers"')
-    sys.exit()
-else:
-    pass
-
-df = arcpy.mapping.ListDataFrames(mxd, "Layers")[0]
+dataFrame = dfs[0].name
+df = arcpy.mapping.ListDataFrames(mxd, "{}".format(dataFrame))[0]
 
 # Get feature class to analyze
 fc = arcpy.GetParameterAsText(0)
