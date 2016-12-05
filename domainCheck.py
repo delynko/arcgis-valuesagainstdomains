@@ -10,7 +10,6 @@
 
 import arcpy
 import os
-import sys
 
 arcpy.env.overwriteOutput = True
 
@@ -30,14 +29,15 @@ descFC = arcpy.Describe(fc)
 
 # Define workspace
 def get_workspace(featureClass):
-    catalogPath = os.path.dirname(featureClass.catalogPath)
+    descFC = arcpy.Describe(featureClass)
+    catalogPath = os.path.dirname(descFC.catalogPath)
     # Determines the workspace path based on whether feature class is in a feature dataset
     if arcpy.Describe(catalogPath).dataType == 'FeatureDataset':
         arcpy.env.workspace = arcpy.Describe(catalogPath).path
     else:
-        arcpy.env.workspace = featureClass.path
+        arcpy.env.workspace = descFC.path
     return arcpy.env.workspace
-get_workspace(descFC)
+get_workspace(fc)
 
 # Create domain list object
 doms = arcpy.da.ListDomains()
@@ -57,7 +57,7 @@ def get_domain_for_field():
 fieldDomain = get_domain_for_field()
 
 if len(fieldDomain) > 0:
-    print arcpy.AddWarning("The domain for the {} field is {}.".format(fieldSel, fieldDomain))
+    print arcpy.AddWarning("The domain for the {} field is {}.\n".format(fieldSel, fieldDomain))
     # Get the coded values for domain of selected field
     for dom in doms:
         if dom.name == fieldDomain:
@@ -101,13 +101,11 @@ if len(fieldDomain) > 0:
 
     # Create set from list of non-matching values
     nonDom = set(nonDomVals)
-    
     if len(nonDomVals) < 1:
         print arcpy.AddWarning("Congratulations!! All values in the data match the domain's coded values.\n")
-        
     # Print values in data that do not match coded values in selected field
     for v in nonDom:
-        print arcpy.AddWarning("{} is not a value in the {} domain for the {} field.".format(v, fieldDomain, fieldSel))
+        print arcpy.AddWarning("{} is not a value in the {} domain for the {} field.\n".format(v, fieldDomain, fieldSel))
 
     print arcpy.AddWarning("Valid values are for {} field are:".format(fieldSel))
     for domVal in domValList:
@@ -118,4 +116,3 @@ if len(fieldDomain) > 0:
 # Nothing happens if field has no domain
 else:
     print arcpy.AddWarning("The {} field has no domain.".format(fieldSel))
-
