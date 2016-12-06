@@ -29,13 +29,13 @@ descFC = arcpy.Describe(fc)
 
 # Define workspace
 def get_workspace(featureClass):
-    descFC = arcpy.Describe(featureClass)
-    catalogPath = os.path.dirname(descFC.catalogPath)
+    fcDesc = arcpy.Describe(featureClass)
+    catalogPath = os.path.dirname(fcDesc.catalogPath)
     # Determines the workspace path based on whether feature class is in a feature dataset
     if arcpy.Describe(catalogPath).dataType == 'FeatureDataset':
         arcpy.env.workspace = arcpy.Describe(catalogPath).path
     else:
-        arcpy.env.workspace = descFC.path
+        arcpy.env.workspace = fcDesc.path
     return arcpy.env.workspace
 get_workspace(fc)
 
