@@ -1,11 +1,11 @@
 # The purpose of this tool is to check values in a feature class against the coded values in a geodatabase domain.
-# The result will be a layer in the ArcGIS Pro Project (aprs) where values from the specified feature class and field
+# The result will be a layer in the ArcGIS Pro Project (.aprx) where values from the specified feature class and field
 # that do not match the coded domain values are selected. This allows the user to easily identify illegal values and
 # change them.
 #
 # This script intended to be used as the source of a script in a Python Toolbox (.tbx). It should be run in
-# an open ESRI ArcGIS Pro Project (.aprx). A new map must be created in the project and named 'Domain Check' and
-# positioned at the far left of the window (index position 0). The toolbox parameters should be (0)Feature Class and
+# an open ESRI ArcGIS Pro Project (.aprx). A new map must be created and named 'DomainCheck' and
+# positioned at the far left of the window (index position 0). The toolbox parameters should be (0) Feature Class and
 # (1) Field. The Field parameter needs to be set to 'Dependency' : Feature_Class.
 #
 # Created August 20, 2016
